@@ -140,7 +140,7 @@ Tests: 8 passed, 8 total
 - **Live Demo**: [Live Demo](https://shopping-cart-challenge-v1.vercel.app/)
 - **Portfolio**: [ompharate.me](https://ompharate.me)
 - **GitHub Repository**: [shopping-cart-challenge](https://github.com/ompharate/shopping-cart-challenge)
-- **Loom Recording Video**: [Video]()
+- **Loom Recording Video**: [Video](https://www.loom.com/share/6821e8216c8342918ce8cdbd363caa47?sid=e5b5834d-5d9c-45ee-9612-916353b6bcfe)
 
 ## 🎯 API Endpoints
 
