@@ -1,74 +1,156 @@
-# E-Commerce Site - Om Verto Challenge
+# 🛒 E-Commerce Shopping Cart
 
-A minimal e-commerce site built with Node.js/Express backend and React frontend to demonstrate product listing and shopping cart functionality.
+A modern, full-stack e-commerce shopping cart application built with React 19, TypeScript, and Node.js. Features a clean, responsive design with persistent cart functionality and comprehensive testing.
 
-## Features
+## ✨ Features
 
-### Core Features ✅
-- **Backend:**
-  - API endpoint that returns a hardcoded JSON list of products (8 items with id, name, price, imageUrl, and description)
-  - API endpoint that accepts cart items and logs orders to console, returning success message
-  
-- **Frontend:**
-  - Product grid displaying fetched products
-  - "Add to Cart" functionality for each product
-  - Client-side cart state management
-  - Cart modal showing items, quantities, and total price
-  - Checkout button that sends cart data to backend
+### Frontend Features
+- **Product Catalog**: Browse through a curated list of products with images, prices, and descriptions
+- **Shopping Cart**: Add, remove, and update product quantities with real-time calculations
+- **Persistent Cart**: Cart data persists across browser sessions using localStorage
+- **Responsive Design**: Fully responsive UI built with Tailwind CSS
+- **React Context**: Global state management for cart functionality
+- **Type Safety**: Full TypeScript implementation for robust development
 
-### Bonus Features ✨
-- **Quantity Management:** Users can change item quantities in the cart
-- **LocalStorage Persistence:** Cart contents persist across page refreshes
-- **Backend Tests:** Jest test cases for the /products endpoint
-- **Responsive Design:** Mobile-friendly layout
+### Backend Features
+- **RESTful API**: Clean API endpoints for products and order processing
+- **Product Management**: Retrieve all products or individual product details
+- **Order Processing**: Handle checkout operations with validation
+## 🚀 Technologies Used
 
-## Tech Stack
+### Frontend Stack
+- **React 19** - Latest React with modern features
+- **TypeScript** - Type-safe JavaScript development
+- **Vite** - Fast build tool and development server
+- **Tailwind CSS** - Utility-first CSS framework
+- **React Context API** - State management for cart functionality
 
-### Backend
-- **Node.js** with **Express**
-- **TypeScript**
-- **CORS** for cross-origin requests
-- **Jest** & **Supertest** for testing
+### Backend Stack
+- **Node.js** - JavaScript runtime environment
+- **Express.js** - Web application framework
+- **TypeScript** - Type-safe server development
+- **CORS** - Cross-origin resource sharing middleware
 
-### Frontend
-- **React 19** with **TypeScript**
-- **Vite** for build tooling
-- **CSS3** for styling
-- **LocalStorage** for cart persistence
+### Development Tools
+- **Jest** - Testing framework for both frontend and backend
+- **Supertest** - HTTP assertion library for API testing
 
-## Project Structure
+
+## 📁 Project Structure
 
 ```
-om-verto-challenge/
-├── backend/
+├── backend/                 # Node.js API server
 │   ├── src/
-│   │   ├── index.ts          # Main server file with API endpoints
-│   │   └── tests/
-│   │       └── products.test.ts  # Test cases for products endpoint
-│   ├── package.json
-│   ├── tsconfig.json
-│   └── jest.config.js
-├── frontend/
+│   │   ├── controllers/     # Request handlers
+│   │   ├── routes/          # API route definitions
+│   │   ├── middleware/      # Custom middleware
+│   │   ├── data/           # Mock data and types
+│   │   ├── tests/          # Test suites
+│   │   └── types/          # TypeScript type 
+│   └── package.json
+├── frontend/               # React application
 │   ├── src/
-│   │   ├── components/
-│   │   │   ├── Header.tsx    # Navigation header with cart button
-│   │   │   ├── ProductGrid.tsx   # Product listing grid
-│   │   │   └── Cart.tsx      # Shopping cart modal
-│   │   ├── App.tsx           # Main app component
-│   │   ├── App.css           # Styling
-│   │   ├── types.ts          # TypeScript interfaces
-│   │   └── main.tsx          # App entry point
-│   ├── package.json
-│   └── vite.config.ts
+│   │   ├── components/     # Reusable UI components
+│   │   ├── context/        # React Context providers
+│   │   ├── assets/         # Static assets
+│   │   └── types.ts        # TypeScript interfaces
+│   └── package.json
 └── README.md
 ```
 
-## API Endpoints
+## 🏃‍♂️ How to Run the Project
 
-### GET /api/products
-Returns a list of all products.
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn package manager
 
-**Response:**
+### Backend Setup
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+   The backend will run on `http://localhost:5000`
+
+### Frontend Setup
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+   The frontend will run on `http://localhost:5173`
+
+### Environment Variables
+Create a `.env` file in the frontend directory if you need to customize the API base URL:
+```
+VITE_API_BASE_URL=http://localhost:5000/api
+```
+
+## 🧪 How to Run Test Cases
+
+### Backend Tests
+Run the complete test suite for the backend:
+```bash
+cd backend
+npm test
+```
+
+### Test Coverage
+The backend includes comprehensive tests for:
+- **Product API endpoints** - Get all products, get product by ID
+- **Order processing** - Checkout validation and error handling
+- **Error scenarios** - Invalid requests and server errors
+
+### Sample Test Output
+```
+✅ Products API
+  ✓ GET /api/products - should return all products
+  ✓ GET /api/products/:id - should return specific product
+  ✓ GET /api/products/:id - should handle invalid product ID
+
+✅ Checkout API  
+  ✓ POST /api/orders/checkout - should process valid order
+  ✓ POST /api/orders/checkout - should validate required fields
+  ✓ POST /api/orders/checkout - should handle empty cart
+
+Test Suites: 2 passed, 2 total
+Tests: 8 passed, 8 total
+```
+
+## 🔗 Live Links
+
+- **Live Demo**: [Coming Soon](#) <!-- Add your deployed application URL here -->
+- **Portfolio**: [ompharate.me](https://ompharate.me)
+- **GitHub Repository**: [shopping-cart-challenge](https://github.com/ompharate/shopping-cart-challenge)
+
+## 🎯 API Endpoints
+
+### Products
+- `GET /api/products` - Retrieve all products
+- `GET /api/products/:id` - Retrieve specific product by ID
+
+### Orders
+- `POST /api/orders/checkout` - Process cart checkout
+
+### Example API Response
 ```json
 {
   "success": true,
@@ -77,123 +159,9 @@ Returns a list of all products.
       "id": 1,
       "name": "Wireless Headphones",
       "price": 99.99,
-      "imageUrl": "https://...",
-      "description": "Premium wireless headphones..."
+      "image": "/images/headphones.jpg",
+      "description": "High-quality wireless headphones with noise cancellation"
     }
   ]
 }
 ```
-
-### POST /api/checkout
-Processes a checkout request with cart items.
-
-**Request Body:**
-```json
-{
-  "items": [
-    {
-      "productId": 1,
-      "quantity": 2
-    }
-  ]
-}
-```
-
-**Response:**
-```json
-{
-  "success": true,
-  "message": "Order placed successfully!",
-  "orderId": "ORD-1234567890",
-  "total": "199.98"
-}
-```
-
-## Getting Started
-
-### Prerequisites
-- Node.js (v18 or higher)
-- npm or yarn
-
-### Installation & Setup
-
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd om-verto-challenge
-   ```
-
-2. **Backend Setup**
-   ```bash
-   cd backend
-   npm install
-   npm run dev
-   ```
-   The backend will start on http://localhost:5000
-
-3. **Frontend Setup** (in a new terminal)
-   ```bash
-   cd frontend
-   npm install
-   npm run dev
-   ```
-   The frontend will start on http://localhost:5173
-
-### Running Tests
-
-**Backend Tests:**
-```bash
-cd backend
-npm test
-```
-
-## Usage
-
-1. **Browse Products:** View the product grid on the homepage
-2. **Add to Cart:** Click "Add to Cart" on any product
-3. **View Cart:** Click the cart button in the header to open the cart modal
-4. **Manage Quantities:** Use +/- buttons to adjust item quantities or remove items
-5. **Checkout:** Click "Checkout" to submit the order (logs to backend console)
-
-## Key Implementation Details
-
-### State Management
-- Cart state is managed in the main App component
-- Cart data is automatically saved to localStorage
-- Cart persists across browser sessions
-
-### Error Handling
-- Frontend displays error messages if backend is unavailable
-- Image fallbacks for broken product images
-- Form validation for checkout
-
-### Responsive Design
-- Mobile-first CSS approach
-- Flexible grid layout that adapts to screen size
-- Touch-friendly interface elements
-
-### Performance
-- Efficient re-renders using proper React patterns
-- Optimized images with fallbacks
-- Minimal API calls with proper error handling
-
-## Development Notes
-
-### Code Quality
-- Clear separation between frontend and backend
-- Well-defined API structure
-- TypeScript for type safety
-- Modular component architecture
-- Comprehensive error handling
-
-### Testing
-- Backend API tests using Jest and Supertest
-- Tests cover endpoint functionality and data structure validation
-
-## Future Enhancements
-- User authentication
-- Product categories and filtering
-- Real database integration
-- Payment processing
-- Order history
-- Product reviews and ratings
