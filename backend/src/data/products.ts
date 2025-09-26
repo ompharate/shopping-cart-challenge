@@ -40,7 +40,7 @@ export const products: Product[] = [
     id: 6,
     name: "USB-C Cable",
     price: 19.99,
-    imageUrl: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=300&h=300&fit=crop",
+    imageUrl: "https://rukminim2.flixcart.com/image/480/640/l27wtjk0/data-cable/usb-type-c-cable/9/x/5/15w-charging-data-cable-for-all-type-c-devices-callmate-original-imagdmyfkz8xmp4c.jpeg?q=90",
     description: "High-speed USB-C charging and data cable"
   },
   {
