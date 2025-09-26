@@ -1,28 +1,29 @@
 import { useState, useEffect } from 'react'
-import type { CartItem, Product } from './types'
+import type { Product } from './types'
 import { ProductGrid } from './components/ProductGrid'
 import { Header } from './components/Header'
 import { Cart } from './components/Cart'
+import { useCart } from './context/CartContext'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api'
 
 export const App = () => {
   const [products, setProducts] = useState<Product[]>([])
-  const [cart, setCart] = useState<CartItem[]>([])
-  const [isCartOpen, setIsCartOpen] = useState(false)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-
-  useEffect(() => {
-    const savedCart = localStorage.getItem('shopping-cart')
-    if (savedCart) {
-      setCart(JSON.parse(savedCart))
-    }
-  }, [])
-
-  useEffect(() => {
-    localStorage.setItem('shopping-cart', JSON.stringify(cart))
-  }, [cart])
+  
+  const { 
+    cart, 
+    isCartOpen, 
+    addToCart, 
+    updateCartItemQuantity, 
+    removeFromCart, 
+    clearCart, 
+    openCart, 
+    closeCart, 
+    getCartItemsCount, 
+    getCartTotal 
+  } = useCart()
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -47,55 +48,7 @@ export const App = () => {
     fetchProducts()
   }, [])
 
-  const addToCart = (productId: number) => {
-    setCart(prevCart => {
-      const existingItem = prevCart.find(item => item.productId === productId)
-      
-      if (existingItem) {
-        return prevCart.map(item =>
-          item.productId === productId
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        )
-      } else {
-        return [...prevCart, { productId, quantity: 1 }]
-      }
-    })
-  }
 
-  const updateCartItemQuantity = (productId: number, quantity: number) => {
-    if (quantity <= 0) {
-      removeFromCart(productId)
-      return
-    }
-
-    setCart(prevCart =>
-      prevCart.map(item =>
-        item.productId === productId
-          ? { ...item, quantity }
-          : item
-      )
-    )
-  }
-
-  const removeFromCart = (productId: number) => {
-    setCart(prevCart => prevCart.filter(item => item.productId !== productId))
-  }
-
-  const clearCart = () => {
-    setCart([])
-  }
-
-  const getCartItemsCount = () => {
-    return cart.reduce((total, item) => total + item.quantity, 0)
-  }
-
-  const getCartTotal = () => {
-    return cart.reduce((total, cartItem) => {
-      const product = products.find(p => p.id === cartItem.productId)
-      return total + (product ? product.price * cartItem.quantity : 0)
-    }, 0)
-  }
 
   const handleCheckout = async () => {
     if (cart.length === 0) {
@@ -117,7 +70,7 @@ export const App = () => {
       if (data.success) {
         alert(`Order placed successfully! Order ID: ${data.orderId}\nTotal: $${data.total}`)
         clearCart()
-        setIsCartOpen(false)
+        closeCart()
       } else {
         alert('Failed to place order: ' + data.message)
       }
@@ -163,7 +116,7 @@ export const App = () => {
     <div className="min-h-screen bg-gray-50">
       <Header
         cartItemsCount={getCartItemsCount()}
-        onCartClick={() => setIsCartOpen(true)}
+        onCartClick={openCart}
       />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -175,11 +128,11 @@ export const App = () => {
         <Cart
           cart={cart}
           products={products}
-          onClose={() => setIsCartOpen(false)}
+          onClose={closeCart}
           onUpdateQuantity={updateCartItemQuantity}
           onRemoveItem={removeFromCart}
           onCheckout={handleCheckout}
-          total={getCartTotal()}
+          total={getCartTotal(products)}
         />
       )}
     </div>
